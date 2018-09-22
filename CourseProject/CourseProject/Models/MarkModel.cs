@@ -7,8 +7,9 @@ namespace CourseProject.Models
 {
     public class MarkModel
     {
-        public int Id { get; set; }
-        //id-User
-        //id-Summary
+        public Guid Id { get; set; }
+        public Guid AricleId { get; set; }
+        public Guid UserId { get; set; }
+        public int Value { get; set; }
     }
 }

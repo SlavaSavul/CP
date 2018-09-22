@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace CourseProject.Models
 {
-    public class LikeModel
+    public class TagsModel
     {
         public Guid Id { get; set; }
-        public Guid AricleId { get; set; }
-        public Guid UserId { get; set; }
+        public string Title { get; set; }
+
     }
 }

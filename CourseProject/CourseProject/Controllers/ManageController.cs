@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using CourseProject.Models;
 using CourseProject.Models.ManageViewModels;
 using CourseProject.Services;
+using CourseProject.Models.ViewModels;
 
 namespace CourseProject.Controllers
 {
@@ -42,6 +43,30 @@ namespace CourseProject.Controllers
             _logger = logger;
             _urlEncoder = urlEncoder;
         }
+
+        [Authorize]
+        public IActionResult UsersList()
+        {
+
+            IQueryable users = _userManager.Users;
+            if (users == null)//хз что это
+            {
+                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+            List<UserViewModel> model = new List<UserViewModel>();
+            foreach (ApplicationUser user in users)
+            {
+                model.Add(new UserViewModel()
+                {
+                    RegistrationDate = user.RegistrationDate,
+                    Email = user.Email,
+                    Id = user.Id,
+                    Lockout = user.LockoutEnabled
+                });
+            }
+            return View(model);
+        }
+
 
         [TempData]
         public string StatusMessage { get; set; }

@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace CourseProject.Data.Migrations
+namespace CourseProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180922095612_AddAllTables")]
-    partial class AddAllTables
+    [Migration("20180922164333_M1")]
+    partial class M1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,6 +36,8 @@ namespace CourseProject.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("Language");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -52,7 +54,11 @@ namespace CourseProject.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<DateTime>("RegistrationDate");
+
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("Style");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -72,14 +78,54 @@ namespace CourseProject.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("CourseProject.Models.ArticleModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("Data");
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime>("ModifitedDate");
+
+                    b.Property<string>("Specialty");
+
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Summaries");
+                });
+
+            modelBuilder.Entity("CourseProject.Models.ArticleTagsModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AbstractId");
+
+                    b.Property<Guid>("TagsId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ArticleTags");
+                });
+
             modelBuilder.Entity("CourseProject.Models.ComentModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AricleId");
 
                     b.Property<string>("Coment");
 
                     b.Property<DateTime>("Date");
+
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
 
@@ -88,8 +134,12 @@ namespace CourseProject.Data.Migrations
 
             modelBuilder.Entity("CourseProject.Models.LikeModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AricleId");
+
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
 
@@ -98,30 +148,30 @@ namespace CourseProject.Data.Migrations
 
             modelBuilder.Entity("CourseProject.Models.MarkModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AricleId");
+
+                    b.Property<Guid>("UserId");
+
+                    b.Property<int>("Value");
 
                     b.HasKey("Id");
 
                     b.ToTable("Marks");
                 });
 
-            modelBuilder.Entity("CourseProject.Models.SummaryModel", b =>
+            modelBuilder.Entity("CourseProject.Models.TagsModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Data");
-
-                    b.Property<DateTime>("Date");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Spetialty");
+                    b.Property<string>("Title");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Summaries");
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

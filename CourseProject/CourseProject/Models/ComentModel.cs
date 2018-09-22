@@ -7,10 +7,10 @@ namespace CourseProject.Models
 {
     public class ComentModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime Date { get; set; }
         public string Coment { get; set; }
-        //id-User
-        //id-Summary
+        public Guid AricleId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

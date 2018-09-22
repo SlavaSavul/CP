@@ -37,6 +37,58 @@ namespace CourseProject.Controllers
             _logger = logger;
         }
 
+
+
+        [Authorize]
+        public async Task<bool> DeleteUser(List<string> arr)
+        {
+            ApplicationUser user = new ApplicationUser();
+            foreach (string id in arr)
+            {
+                user = await _userManager.FindByIdAsync(id);
+                if (user.Email == User.Identity.Name)
+                {
+                    await _signInManager.SignOutAsync();
+                }
+                await _userManager.DeleteAsync(user);
+            }
+            return true;
+        }
+
+        [Authorize]
+        public async Task<bool> LockUser(List<string> arr)
+        {
+            ApplicationUser user = new ApplicationUser();
+            foreach (string id in arr)
+            {
+                user = await _userManager.FindByIdAsync(id);
+                user.LockoutEnabled = false;
+                if (user.Email == User.Identity.Name)
+                {
+                    await _signInManager.SignOutAsync();
+                }
+                await _userManager.UpdateAsync(user);
+            }
+            return true;
+        }
+
+        [Authorize]
+        public async Task<bool> UnLockUser(List<string> arr)
+        {
+            ApplicationUser user = new ApplicationUser();
+            foreach (string id in arr)
+            {
+                user = await _userManager.FindByIdAsync(id);
+                user.LockoutEnabled = true;
+                if (user.Email == User.Identity.Name)
+                {
+                    await _signInManager.SignOutAsync();
+                }
+                await _userManager.UpdateAsync(user);
+            }
+            return true;
+        }
+
         [TempData]
         public string ErrorMessage { get; set; }
 
@@ -230,7 +282,7 @@ namespace CourseProject.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, RegistrationDate=DateTime.Now };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

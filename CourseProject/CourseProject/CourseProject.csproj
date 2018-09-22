@@ -5,6 +5,25 @@
     <UserSecretsId>aspnet-CourseProject-A137FF86-F58A-4751-9175-3AF83095BD47</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.cs" />
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180922095612_AddAllTables.cs" />
+    <Compile Remove="Data\Migrations\20180922095612_AddAllTables.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180922095949_AddUserRows.cs" />
+    <Compile Remove="Data\Migrations\20180922095949_AddUserRows.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180922160822_M2.cs" />
+    <Compile Remove="Data\Migrations\20180922160822_M2.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180922163516_M3.cs" />
+    <Compile Remove="Data\Migrations\20180922163516_M3.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180922163609_M4.cs" />
+    <Compile Remove="Data\Migrations\20180922163609_M4.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180922164002_M5.cs" />
+    <Compile Remove="Data\Migrations\20180922164002_M5.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180922164211_M1.cs" />
+    <Compile Remove="Data\Migrations\20180922164211_M1.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="2.0.6" />
@@ -18,6 +37,10 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.2" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>

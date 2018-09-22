@@ -26,6 +26,9 @@ namespace CourseProject.Data
         public DbSet<MarkModel> Marks { get; set; }
         public DbSet<LikeModel> Likes { get; set; }
         public DbSet<ComentModel> Coments { get; set; }
-        public DbSet<SummaryModel> Summaries { get; set; }
+        public DbSet<ArticleModel> Summaries { get; set; }
+        public DbSet<TagsModel> Tags { get; set; }
+        public DbSet<ArticleTagsModel> ArticleTags { get; set; }
+
     }
 }

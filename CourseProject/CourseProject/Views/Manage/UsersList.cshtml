@@ -1,0 +1,121 @@
+﻿@model IEnumerable<CourseProject.Models.ViewModels.UserViewModel>
+
+@{
+    ViewData["Title"] = "UserListView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>UserListView</h2>
+
+<p>
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default" onclick="Locking()">Locking</button>
+        <button type="button" class="btn btn-default" onclick="Unlocking()">Unlocking</button>
+        <button type="button" class="btn btn-default" onclick="Delete()">Delete</button>
+    </div>
+</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegistrationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lockout)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegistrationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lockout)
+                </td>
+               
+                <td>
+                    <input class="checkbox" type="checkbox" name="statuses" value="@item.Id">
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script type="text/javascript">//дублирование
+    function Locking() {
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("LockUser", "Account")",
+            data: { arr: getCheckedCheckBoxes() },
+            success: function (data) {
+                if (data == true) {
+                    location.reload();
+                }
+                else {
+                }
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
+    }
+    function Unlocking() {
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("UnLockUser", "Account")",
+            data: { arr: getCheckedCheckBoxes() },
+            success: function (data) {
+                if (data == true) {
+                    location.reload();
+                }
+                else {
+                }
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
+    }
+    function Delete() {
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("DeleteUser", "Account")",
+            data: { arr: getCheckedCheckBoxes() },
+            success: function (data) {
+                if (data == true) {
+                    location.reload();
+                }
+                else {
+                }
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
+    }
+
+    function getCheckedCheckBoxes() {
+        var checkboxes = document.getElementsByClassName('checkbox');
+        var checkboxesChecked = [];
+        for (var index = 0; index < checkboxes.length; index++) {
+            if (checkboxes[index].checked) {
+                checkboxesChecked.push(checkboxes[index].value);
+            }
+        }
+        return checkboxesChecked;
+    }
+
+</script>
